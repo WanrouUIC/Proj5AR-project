@@ -7,18 +7,33 @@
   <body style="margin: 0px; overflow: hidden;">
     <a-scene embedded arjs>
       
-      <!-- Your custom marker pointing to your pattern file -->
+      <!-- Your custom marker -->
       <a-marker type="pattern" url="assets/pattern-marker.patt">
         
-        <!-- Custom 3D Text that pops up on the marker -->
-        <a-text value="Hello AR World!" 
-                position="0 0.5 0" 
-                rotation="-90 0 0" 
-                align="center" 
-                color="#00FF00" 
-                scale="2 2 2">
-        </a-text>
-        
+        <!-- Parent Entity handling both the Hop and the Rotation -->
+        <a-entity position="0 0.5 0"
+                  animation__hop="property: position; from: 0 0.5 0; to: 0 1.2 0; dir: alternate; loop: true; dur: 1200; easing: easeInOutSine"
+                  animation__rot="property: rotation; to: 0 360 0; loop: true; dur: 4000; easing: linear">
+          
+          <!-- 3D Text Layer (Front) -->
+          <a-text value="Hello AR World!" 
+                  align="center" 
+                  color="#00FF88" 
+                  scale="2.5 2.5 2.5"
+                  side="double">
+          </a-text>
+
+          <!-- Offset Text Layer (Back shadow for 3D extrusion effect) -->
+          <a-text value="Hello AR World!" 
+                  align="center" 
+                  color="#003311" 
+                  position="0 0 -0.05"
+                  scale="2.5 2.5 2.5"
+                  side="double">
+          </a-text>
+          
+        </a-entity>
+
       </a-marker>
 
       <a-entity camera></a-entity>
