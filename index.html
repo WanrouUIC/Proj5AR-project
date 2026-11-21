@@ -13,64 +13,15 @@
 
   <title>My AR Project</title>
 
-  <!-- A-Frame -->
   <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
 
-  <!-- AR.js -->
   <script src="https://raw.githack.com/AR-js-org/AR.js/3.4.7/aframe/build/aframe-ar.js"></script>
 
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-      background: transparent;
-    }
-
-    #startAR {
-      position: fixed;
-      z-index: 99999;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      padding: 16px 30px;
-      border: none;
-      border-radius: 12px;
-      background: #45586D;
-      color: white;
-      font-size: 18px;
-      font-weight: bold;
-    }
-
-    #status {
-      position: fixed;
-      z-index: 99999;
-      bottom: 25px;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      color: white;
-      font-size: 14px;
-      font-family: Arial, sans-serif;
-      text-shadow: 1px 1px 3px black;
-      pointer-events: none;
-    }
-  </style>
 </head>
 
-<body>
+<body style="margin: 0; overflow: hidden;">
 
-  <!-- Start Button -->
-  <button id="startAR">START AR</button>
-
-  <!-- Status Message -->
-  <div id="status">Please tap START AR</div>
-
-  <!-- AR Scene -->
   <a-scene
-    id="scene"
     embedded
     vr-mode-ui="enabled: false"
     renderer="antialias: true; alpha: true; precision: medium;"
@@ -81,7 +32,7 @@
       type="pattern"
       url="./pattern-ar-marker-02.patt">
 
-      <!-- Animation Parent -->
+      <!-- Animation -->
       <a-entity
         position="0 0.5 0"
         animation__hop="
@@ -99,10 +50,8 @@
           dur: 3000;
           easing: linear">
 
-        <!-- Text Rotation -->
         <a-entity rotation="-90 0 0">
 
-          <!-- Main Text -->
           <a-text
             value="DANIEL LEE"
             align="center"
@@ -111,7 +60,6 @@
             side="double">
           </a-text>
 
-          <!-- Shadow Text -->
           <a-text
             value="DANIEL LEE"
             align="center"
@@ -130,89 +78,6 @@
     <a-entity camera></a-entity>
 
   </a-scene>
-
-  <script>
-    const startButton = document.getElementById("startAR");
-    const statusText = document.getElementById("status");
-    const scene = document.getElementById("scene");
-
-    // Set iPhone-compatible video attributes
-    function prepareVideo() {
-      const video = document.querySelector("video");
-
-      if (video) {
-        video.setAttribute("autoplay", "");
-        video.setAttribute("muted", "");
-        video.setAttribute("playsinline", "");
-        video.setAttribute("webkit-playsinline", "");
-
-        video.muted = true;
-        video.playsInline = true;
-
-        return video;
-      }
-
-      return null;
-    }
-
-    // AR.js camera events
-    scene.addEventListener("camera-init", () => {
-      statusText.textContent = "Camera initialized";
-      prepareVideo();
-    });
-
-    scene.addEventListener("arjs-video-loaded", () => {
-      statusText.textContent = "Camera video loaded";
-      prepareVideo();
-    });
-
-    scene.addEventListener("camera-error", (event) => {
-      statusText.textContent = "Camera error. Please reload.";
-      console.error("AR camera error:", event);
-    });
-
-    // Start camera video after user interaction
-    startButton.addEventListener("click", async () => {
-
-      statusText.textContent = "Starting camera...";
-
-      const video = prepareVideo();
-
-      if (!video) {
-        statusText.textContent =
-          "Video not ready. Please wait and tap again.";
-        return;
-      }
-
-      try {
-        await video.play();
-
-        statusText.textContent =
-          "Camera started. Point at Marker 02.";
-
-        startButton.style.display = "none";
-
-      } catch (error) {
-
-        statusText.textContent =
-          "Video error: " + error.name;
-
-        console.error("Video playback error:", error);
-      }
-    });
-
-    // Marker events
-    const marker = document.querySelector("a-marker");
-
-    marker.addEventListener("markerFound", () => {
-      statusText.textContent = "Marker 02 detected!";
-    });
-
-    marker.addEventListener("markerLost", () => {
-      statusText.textContent = "Looking for Marker 02...";
-    });
-
-  </script>
 
 </body>
 </html>
