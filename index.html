@@ -16,12 +16,11 @@
 
 <body style="margin:0; overflow:hidden;">
 
-  <div id="status"
-       style="position:fixed; top:10px; left:10px; z-index:9999;
-       background:black; color:white; padding:10px;
-       font-size:14px;">
-    Loading AR scene...
-  </div>
+  <div id="video-check"
+     style="position:fixed; top:55px; left:10px; z-index:9999;
+     background:black; color:white; padding:10px;">
+  Checking video...
+</div>
 
   <a-scene
     embedded
@@ -53,6 +52,20 @@
     scene.addEventListener("arjs-video-loaded", function () {
       status.textContent = "AR video loaded!";
     });
+
+    setInterval(function () {
+  const videos = document.querySelectorAll("video");
+  const check = document.getElementById("video-check");
+
+  check.textContent = "Video elements: " + videos.length;
+
+  if (videos.length > 0) {
+    check.textContent +=
+      " | Ready state: " + videos[0].readyState +
+      " | Size: " + videos[0].videoWidth +
+      "x" + videos[0].videoHeight;
+  }
+}, 1000);
   </script>
 
 </body>
