@@ -20,11 +20,11 @@
     renderer="antialias: true; alpha: true; precision: medium;"
     arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
 
-    <a-marker preset="hiro">
+    <a-marker type="pattern" url="./assets/pattern-marker.patt">
   <a-box position="0 0.5 0" color="red"></a-box>
 </a-marker>
     
-    <a-marker type="pattern" url="./pattern-ar-02.patt">
+    <a-marker type="pattern" url="./assets/pattern-ar-02.patt">
       <a-entity
         position="0 0.5 0"
         animation__hop="property: position; from: 0 0.5 0; to: 0 1.2 0; dir: alternate; loop: true; dur: 1200; easing: easeInOutSine"
