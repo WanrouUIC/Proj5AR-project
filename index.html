@@ -26,50 +26,24 @@
     renderer="antialias: true; alpha: true; precision: medium;"
     arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
 
+    
     <!-- Marker 02 -->
-    <a-marker type="pattern" url="assets/pattern-ar-02.patt">
-
-      <!-- Animation -->
-      <a-entity
-        position="0 0.5 0"
-        animation__hop="
-          property: position;
-          from: 0 0.5 0;
-          to: 0 1.2 0;
-          dir: alternate;
-          loop: true;
-          dur: 1200;
-          easing: easeInOutSine"
-        animation__spin="
-          property: rotation;
-          to: 0 360 0;
-          loop: true;
-          dur: 3000;
-          easing: linear">
-
-        <a-entity rotation="-90 0 0">
-
-          <a-text
-            value="DANIEL LEE"
-            align="center"
-            color="#00FF88"
-            scale="2 2 2"
-            side="double">
-          </a-text>
-
-          <a-text
-            value="DANIEL LEE"
-            align="center"
-            color="#003311"
-            position="0 0 -0.05"
-            scale="2 2 2"
-            side="double">
-          </a-text>
-
-        </a-entity>
+    <a-marker type="pattern" url="./assets/pattern-ar-02.patt">
+    
+      <a-entity rotation="-90 0 0">
+    
+        <a-image
+          src="./assets/after-scan-2.png"
+          position="0 0 0"
+          width="1.8"
+          height="1.98"
+          rotation="0 0 0">
+        </a-image>
+    
       </a-entity>
-
+    
     </a-marker>
+
 
     <!-- Camera -->
     <a-entity camera></a-entity>
