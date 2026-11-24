@@ -36,6 +36,21 @@
     const status = document.getElementById("status");
     const scene = document.querySelector("a-scene");
 
+    navigator.mediaDevices.getUserMedia({
+  video: { facingMode: "environment" },
+  audio: false
+}).then(function(stream) {
+  status.textContent = "Camera stream obtained!";
+
+  stream.getTracks().forEach(function(track) {
+    track.stop();
+  });
+
+}).catch(function(error) {
+  status.textContent = "Camera request failed: " +
+    error.name + " - " + error.message;
+});
+
     scene.addEventListener("loaded", function () {
       status.textContent = "A-Frame scene loaded. Waiting for camera...";
     });
