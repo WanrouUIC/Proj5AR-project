@@ -96,8 +96,6 @@
         s.textContent = "Please open this page in Safari (or Chrome on Android)";
       } else if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
         s.textContent = "Camera not supported in this browser. Please use Safari.";
-      } else {
-        s.textContent = "Please allow camera access, then point at a marker";
       }
       
       window.addEventListener("camera-error", () => {
