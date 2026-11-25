@@ -14,7 +14,7 @@
     <a-scene
       vr-mode-ui="enabled: false"
       renderer="antialias: true; alpha: true;"
-      arjs="sourceType: webcam; debugUIEnabled: false; cameraParametersUrl: ./lib/camera_para.dat;">
+      arjs="sourceType: webcam; debugUIEnabled: false;">
 
       <!-- MARKER 02 -->
       <a-marker type="pattern" url="./assets/pattern-ar-02.patt">
@@ -33,7 +33,7 @@
       </a-marker>
 
       <!-- MARKER 04 -->
-      <a-marker type="pattern" url="./pattern-ar-04.patt">
+      <a-marker type="pattern" url="./assets/pattern-ar-04.patt">
         <a-entity rotation="-90 0 0">
           <a-image src="./assets/after-scan-4.png" width="1" height="0.7" position="0 0.5 0"></a-image>
           <a-text value="So many moments, quietly becoming years." align="center" color="#FFFFFF" width="2" position="0 -0.2 0.01"></a-text>
@@ -83,13 +83,17 @@
       <a-entity camera></a-entity>
     </a-scene>
 
-    <!-- Status bar (delete this block and the script below before final presentation if you like) -->
+    <!-- Status bar (top) -->
     <div id="status" style="position:fixed;top:0;left:0;right:0;padding:8px;background:rgba(0,0,0,.7);color:#0f8;font:14px monospace;z-index:9999;pointer-events:none">
       Loading...
     </div>
 
+    <!-- Missing files warning (bottom) -->
+    <div id="missing" style="position:fixed;bottom:0;left:0;right:0;padding:8px;background:rgba(0,0,0,.7);color:#ff6b6b;font:12px monospace;z-index:9999;pointer-events:none;word-break:break-all;display:none"></div>
+
     <script>
       const s = document.getElementById("status");
+      const miss = document.getElementById("missing");
       const ua = navigator.userAgent;
 
       if (/MicroMessenger|QQ\/|Instagram|Line\/|FBAN|FBAV/i.test(ua)) {
@@ -106,12 +110,32 @@
       window.addEventListener("camera-error", () => {
         s.textContent = "Camera could not start. Please check permissions";
       });
+      window.addEventListener("error", (e) => {
+        if (e.target && (e.target.src || e.target.href)) {
+          miss.style.display = "block";
+          miss.textContent += " Failed to load: " + (e.target.src || e.target.href);
+        }
+      }, true);
 
       document.addEventListener("DOMContentLoaded", () => {
         document.querySelectorAll("a-marker").forEach((m, i) => {
           m.addEventListener("markerFound", () => s.textContent = "Marker found: " + (i + 1));
           m.addEventListener("markerLost", () => s.textContent = "Point at a marker");
         });
+
+        // Check that every marker and image file exists
+        const files = [].concat(
+          [...document.querySelectorAll("a-marker")].map(m => m.getAttribute("url")),
+          [...document.querySelectorAll("a-image")].map(i => i.getAttribute("src"))
+        );
+        Promise.all(files.map(f => fetch(f).then(r => r.ok ? null : f).catch(() => f)))
+          .then(list => {
+            const missing = list.filter(Boolean);
+            if (missing.length) {
+              miss.style.display = "block";
+              miss.textContent = "Missing files: " + missing.join(", ");
+            }
+          });
       });
     </script>
   </body>
