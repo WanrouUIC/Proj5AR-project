@@ -82,5 +82,37 @@
 
       <a-entity camera></a-entity>
     </a-scene>
+
+    <!-- Status bar (delete this block and the script below before final presentation if you like) -->
+    <div id="status" style="position:fixed;top:0;left:0;right:0;padding:8px;background:rgba(0,0,0,.7);color:#0f8;font:14px monospace;z-index:9999;pointer-events:none">
+      Loading...
+    </div>
+
+    <script>
+      const s = document.getElementById("status");
+      const ua = navigator.userAgent;
+
+      if (/MicroMessenger|QQ\/|Instagram|Line\/|FBAN|FBAV/i.test(ua)) {
+        s.textContent = "Please open this page in Safari (or Chrome on Android)";
+      } else if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        s.textContent = "Camera not supported in this browser. Please use Safari.";
+      } else {
+        s.textContent = "Please allow camera access, then point at a marker";
+      }
+
+      window.addEventListener("arjs-video-loaded", () => {
+        s.textContent = "Camera ready. Point at a marker";
+      });
+      window.addEventListener("camera-error", () => {
+        s.textContent = "Camera could not start. Please check permissions";
+      });
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll("a-marker").forEach((m, i) => {
+          m.addEventListener("markerFound", () => s.textContent = "Marker found: " + (i + 1));
+          m.addEventListener("markerLost", () => s.textContent = "Point at a marker");
+        });
+      });
+    </script>
   </body>
 </html>
