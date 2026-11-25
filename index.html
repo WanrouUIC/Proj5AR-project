@@ -16,12 +16,6 @@
       renderer="antialias: true; alpha: true;"
       arjs="sourceType: webcam; debugUIEnabled: false; cameraParametersUrl: ./lib/camera_para.dat;">
 
-      <!-- Hiro test marker (uncomment only when testing)
-      <a-marker type="pattern" url="./lib/patt.hiro">
-        <a-box position="0 0.5 0" color="red"></a-box>
-      </a-marker>
-      -->
-
       <!-- MARKER 02 -->
       <a-marker type="pattern" url="./assets/pattern-ar-02.patt">
         <a-entity rotation="-90 0 0">
@@ -105,10 +99,7 @@
       } else {
         s.textContent = "Please allow camera access, then point at a marker";
       }
-
-      window.addEventListener("arjs-video-loaded", () => {
-        s.textContent = "Camera ready. Point at a marker";
-      });
+      
       window.addEventListener("camera-error", () => {
         s.textContent = "Camera could not start. Please check permissions";
       });
