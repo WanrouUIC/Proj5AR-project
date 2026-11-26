@@ -1,3 +1,4 @@
+04-05 实测有用
 <!doctype html>
 <html>
   <head>
@@ -13,7 +14,6 @@
         text-align: center; font-family: sans-serif; font-size: 14px;
         z-index: 10; border-radius: 6px; pointer-events: none;
       }
-      html, body { height: 100%; background: #000; }
     </style>
   </head>
   <body style="margin: 0px; overflow: hidden;">
@@ -21,8 +21,8 @@
     <div id="hint">Point your camera at a zine marker</div>
 
     <a-scene embedded vr-mode-ui="enabled: false"
-         renderer="logarithmicDepthBuffer: true; alpha: true"
-         arjs="sourceType: webcam; debugUIEnabled: false; trackingMethod: best; patternRatio: 0.5;"
+             renderer="logarithmicDepthBuffer: true; alpha: true"
+             arjs="sourceType: webcam; debugUIEnabled: false; trackingMethod: best;">
 
       <!-- MARKER 02 -->
       <a-marker type="pattern" url="./assets/pattern-ar-02.patt" smooth="true" smoothCount="12" smoothTolerance="0.01" smoothThreshold="5">
@@ -88,6 +88,7 @@
         </a-entity>
       </a-marker>
 
+
       <a-entity camera></a-entity>
     </a-scene>
 
@@ -105,14 +106,17 @@
 
       // Hide the hint while any marker is tracked, show it again when all are lost
       const hint = document.getElementById('hint');
-      const active = new Set();
+      let visibleCount = 0;
       document.querySelectorAll('a-marker').forEach((m) => {
-        m.addEventListener('markerFound', () => { active.add(m); hint.style.display = 'none'; });
-        m.addEventListener('markerLost',  () => { active.delete(m); if (!active.size) hint.style.display = 'block'; });
+        m.addEventListener('markerFound', () => {
+          visibleCount++;
+          hint.style.display = 'none';
+        });
+        m.addEventListener('markerLost', () => {
+          visibleCount = Math.max(0, visibleCount - 1);
+          if (visibleCount === 0) hint.style.display = 'block';
+        });
       });
-      window.addEventListener('arjs-video-loaded', () => {
-      setTimeout(() => window.dispatchEvent(new Event('resize')), 300);
-    });
     </script>
   </body>
 </html>
