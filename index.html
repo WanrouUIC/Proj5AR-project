@@ -3,9 +3,32 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Riso AR Zine</title>
+    <title>AR Zine</title>
     <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/gh/AR-js-org/AR.js@3.4.5/aframe/build/aframe-ar.js"></script>
+    <script>
+      AFRAME.registerComponent('fit-image', {
+        schema: { width: { default: 1 }, gap: { default: 0.2 } },
+        init: function () {
+          var el = this.el, data = this.data;
+          el.addEventListener('materialtextureloaded', function () {
+            var mesh = el.getObject3D('mesh');
+            var img = mesh && mesh.material.map && mesh.material.map.image;
+            if (!img) return;
+            var w = img.naturalWidth || img.width;
+            var h = img.naturalHeight || img.height;
+            if (!w || !h) return;
+            var height = data.width * h / w;
+            el.setAttribute('geometry', { primitive: 'plane', width: data.width, height: height });
+            var y = -(height / 2) - data.gap;
+            el.parentNode.querySelectorAll('.cap').forEach(function (c) {
+              var p = c.getAttribute('position');
+              c.setAttribute('position', { x: p.x, y: y, z: p.z });
+            });
+          });
+        }
+      });
+    </script>
     <style>
       #hint {
         position: fixed; bottom: 20px; left: 5%; width: 90%;
@@ -26,75 +49,74 @@
       <!-- MARKER 02 -->
       <a-marker type="pattern" url="./assets/pattern-ar-02.patt" smooth="true" smoothCount="12" smoothTolerance="0.01" smoothThreshold="5">
         <a-entity rotation="-90 0 0">
-          <a-image src="./assets/after-scan-2.png" position="0 0 0"></a-image>
-          <a-plane width="1.8" height="0.3" color="#000000" opacity="0.6" material="depthWrite: false" position="0 -0.7 0"></a-plane>
-          <a-text value="We didn't know those days would become memories." align="center" color="#FFFFFF" width="2" position="0 -0.7 0.05"></a-text>
+          <a-image src="./assets/after-scan-2.png" fit-image="width: 1" position="0 0 0"></a-image>
+          <a-plane class="cap" width="1.8" height="0.3" color="#000000" opacity="0.6" material="depthWrite: false" position="0 -0.7 0"></a-plane>
+          <a-text class="cap" value="We didn't know those days would become memories." align="center" color="#FFFFFF" width="2" position="0 -0.7 0.05"></a-text>
         </a-entity>
       </a-marker>
 
       <!-- MARKER 03 -->
       <a-marker type="pattern" url="./assets/pattern-ar-03.patt" smooth="true" smoothCount="12" smoothTolerance="0.01" smoothThreshold="5">
         <a-entity rotation="-90 0 0">
-          <a-image src="./assets/after-scan-3.png" position="0 0 0"></a-image>
-          <a-plane width="1.8" height="0.3" color="#000000" opacity="0.6" material="depthWrite: false" position="0 -0.5 0"></a-plane>
-          <a-text value="Back then, even ordinary days felt endless." align="center" color="#FFFFFF" width="2" position="0 -0.5 0.05"></a-text>
+          <a-image src="./assets/after-scan-3.png" fit-image="width: 1" position="0 0 0"></a-image>
+          <a-plane class="cap" width="1.8" height="0.3" color="#000000" opacity="0.6" material="depthWrite: false" position="0 -0.5 0"></a-plane>
+          <a-text class="cap" value="Back then, even ordinary days felt endless." align="center" color="#FFFFFF" width="2" position="0 -0.5 0.05"></a-text>
         </a-entity>
       </a-marker>
 
       <!-- MARKER 04 -->
       <a-marker type="pattern" url="./assets/pattern-ar-04.patt" smooth="true" smoothCount="12" smoothTolerance="0.01" smoothThreshold="5">
         <a-entity rotation="-90 0 0">
-          <a-image src="./assets/after-scan-4.png" position="0 0 0"></a-image>
-          <a-plane width="1.8" height="0.3" color="#000000" opacity="0.6" material="depthWrite: false" position="0 -0.5 0"></a-plane>
-          <a-text value="So many moments, quietly becoming years." align="center" color="#FFFFFF" width="2" position="0 -0.5 0.05"></a-text>
+          <a-image src="./assets/after-scan-4.png" fit-image="width: 1" position="0 0 0"></a-image>
+          <a-plane class="cap" width="1.8" height="0.3" color="#000000" opacity="0.6" material="depthWrite: false" position="0 -0.5 0"></a-plane>
+          <a-text class="cap" value="So many moments, quietly becoming years." align="center" color="#FFFFFF" width="2" position="0 -0.5 0.05"></a-text>
         </a-entity>
       </a-marker>
 
       <!-- MARKER 05 -->
       <a-marker type="pattern" url="./assets/pattern-ar-05.patt" smooth="true" smoothCount="12" smoothTolerance="0.01" smoothThreshold="5">
         <a-entity rotation="-90 0 0">
-          <a-image src="./assets/after-scan-5.png" position="0 0 0"></a-image>
-          <a-plane width="1.8" height="0.3" color="#000000" opacity="0.6" material="depthWrite: false" position="0 -0.5 0"></a-plane>
-          <a-text value="Somehow, time never waited for us." align="center" color="#FFFFFF" width="2" position="0 -0.5 0.05"></a-text>
+          <a-image src="./assets/after-scan-5.png" fit-image="width: 1" position="0 0 0"></a-image>
+          <a-plane class="cap" width="1.8" height="0.3" color="#000000" opacity="0.6" material="depthWrite: false" position="0 -0.5 0"></a-plane>
+          <a-text class="cap" value="Somehow, time never waited for us." align="center" color="#FFFFFF" width="2" position="0 -0.5 0.05"></a-text>
         </a-entity>
       </a-marker>
 
       <!-- MARKER 06 -->
       <a-marker type="pattern" url="./assets/pattern-ar-06.patt" smooth="true" smoothCount="12" smoothTolerance="0.01" smoothThreshold="5">
         <a-entity rotation="-90 0 0">
-          <a-image src="./assets/after-scan-6.png" position="0 0 0"></a-image>
-          <a-plane width="1.8" height="0.3" color="#000000" opacity="0.6" material="depthWrite: false" position="0 -0.5 0"></a-plane>
-          <a-text value="By the time I noticed, it was already gone." align="center" color="#FFFFFF" width="2" position="0 -0.5 0.05"></a-text>
+          <a-image src="./assets/after-scan-6.png" fit-image="width: 1" position="0 0 0"></a-image>
+          <a-plane class="cap" width="1.8" height="0.3" color="#000000" opacity="0.6" material="depthWrite: false" position="0 -0.5 0"></a-plane>
+          <a-text class="cap" value="By the time I noticed, it was already gone." align="center" color="#FFFFFF" width="2" position="0 -0.5 0.05"></a-text>
         </a-entity>
       </a-marker>
 
       <!-- MARKER 07 -->
       <a-marker type="pattern" url="./assets/pattern-ar-07.patt" smooth="true" smoothCount="12" smoothTolerance="0.01" smoothThreshold="5">
         <a-entity rotation="-90 0 0">
-          <a-image src="./assets/after-scan-7.png" position="0 0 0"></a-image>
-          <a-plane width="1.8" height="0.3" color="#000000" opacity="0.6" material="depthWrite: false" position="0 -0.5 0"></a-plane>
-          <a-text value="I wish I could go back again." align="center" color="#FFFFFF" width="2" position="0 -0.5 0.05"></a-text>
+          <a-image src="./assets/after-scan-7.png" fit-image="width: 1" position="0 0 0"></a-image>
+          <a-plane class="cap" width="1.8" height="0.3" color="#000000" opacity="0.6" material="depthWrite: false" position="0 -0.5 0"></a-plane>
+          <a-text class="cap" value="I wish I could go back again." align="center" color="#FFFFFF" width="2" position="0 -0.5 0.05"></a-text>
         </a-entity>
       </a-marker>
 
       <!-- MARKER 08 -->
       <a-marker type="pattern" url="./assets/pattern-ar-08.patt" smooth="true" smoothCount="12" smoothTolerance="0.01" smoothThreshold="5">
         <a-entity rotation="-90 0 0">
-          <a-image src="./assets/after-scan-8.png" position="0 0 0"></a-image>
-          <a-plane width="1.8" height="0.3" color="#000000" opacity="0.6" material="depthWrite: false" position="0 -0.5 0"></a-plane>
-          <a-text value="We look alike, yet belong to different times." align="center" color="#FFFFFF" width="2" position="0 -0.5 0.05"></a-text>
+          <a-image src="./assets/after-scan-8.png" fit-image="width: 1" position="0 0 0"></a-image>
+          <a-plane class="cap" width="1.8" height="0.3" color="#000000" opacity="0.6" material="depthWrite: false" position="0 -0.5 0"></a-plane>
+          <a-text class="cap" value="We look alike, yet belong to different times." align="center" color="#FFFFFF" width="2" position="0 -0.5 0.05"></a-text>
         </a-entity>
       </a-marker>
 
       <!-- MARKER 09 -->
       <a-marker type="pattern" url="./assets/pattern-ar-09.patt" smooth="true" smoothCount="12" smoothTolerance="0.01" smoothThreshold="5">
         <a-entity rotation="-90 0 0">
-          <a-image src="./assets/after-scan-9.png" position="0 0 0"></a-image>
-          <a-plane width="1.8" height="0.3" color="#000000" opacity="0.6" material="depthWrite: false" position="0 -0.5 0"></a-plane>
-          <a-text value="The thought of those days came back." align="center" color="#FFFFFF" width="2" position="0 -0.5 0.05"></a-text>
+          <a-image src="./assets/after-scan-9.png" fit-image="width: 1" position="0 0 0"></a-image>
+          <a-plane class="cap" width="1.8" height="0.3" color="#000000" opacity="0.6" material="depthWrite: false" position="0 -0.5 0"></a-plane>
+          <a-text class="cap" value="The thought of those days came back." align="center" color="#FFFFFF" width="2" position="0 -0.5 0.05"></a-text>
         </a-entity>
       </a-marker>
-
 
       <a-entity camera></a-entity>
     </a-scene>
