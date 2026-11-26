@@ -1,9 +1,9 @@
 const express = require('express');
-const app = express();
 const path = require('path');
+const app = express();
 
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/index.html'));
-});
+app.use('/assets', express.static(path.join(__dirname, 'assets')));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
-app.listen(8080);
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => console.log(`http://localhost:${PORT}`));
