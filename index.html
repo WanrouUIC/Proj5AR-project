@@ -13,6 +13,7 @@
         text-align: center; font-family: sans-serif; font-size: 14px;
         z-index: 10; border-radius: 6px; pointer-events: none;
       }
+      html, body { height: 100%; background: #000; }
     </style>
   </head>
   <body style="margin: 0px; overflow: hidden;">
@@ -20,35 +21,39 @@
     <div id="hint">Point your camera at a zine marker</div>
 
     <a-scene embedded vr-mode-ui="enabled: false"
-             renderer="logarithmicDepthBuffer: true; alpha: true"
-             arjs="sourceType: webcam; debugUIEnabled: false; trackingMethod: best;">
+         renderer="logarithmicDepthBuffer: true; alpha: true"
+         arjs="sourceType: webcam; debugUIEnabled: false; trackingMethod: best;
+               patternRatio: 0.5;
+               sourceWidth: 1280; sourceHeight: 960;
+               displayWidth: 1280; displayHeight: 960;
+               canvasWidth: 640; canvasHeight: 480;">
 
       <!-- MARKER 02 -->
-      <a-marker type="pattern" url="./assets/pattern-ar-02.patt">
-        <a-entity rotation="-90 0 0">
+      <a-marker type="pattern" url="./assets/pattern-ar-02.patt" smooth="true" smoothCount="12" smoothTolerance="0.01" smoothThreshold="5">
+        <a-entity look-at="[camera]" position="0 0.6 0">
           <a-image src="./assets/after-scan-2.png" width="1" height="0.7" position="0 0 0"></a-image>
           <a-text value="We didn't know those days would become memories." align="center" color="#FFFFFF" width="2" position="0 -0.2 0.01"></a-text>
         </a-entity>
       </a-marker>
 
       <!-- MARKER 03 -->
-      <a-marker type="pattern" url="./assets/pattern-ar-03.patt">
-        <a-entity rotation="-90 0 0">
+      <a-marker type="pattern" url="./assets/pattern-ar-03.patt" smooth="true" smoothCount="12" smoothTolerance="0.01" smoothThreshold="5">
+        <a-entity look-at="[camera]" position="0 0.6 0">
           <a-image src="./assets/after-scan-3.png" width="1" height="0.7" position="0 0 0"></a-image>
           <a-text value="Back then, even ordinary days felt endless." align="center" color="#FFFFFF" width="2" position="0 -0.2 0.01"></a-text>
         </a-entity>
       </a-marker>
 
       <!-- MARKER 04 -->
-      <a-marker type="pattern" url="./assets/pattern-ar-04.patt">
-        <a-entity rotation="-90 0 0">
+      <a-marker type="pattern" url="./assets/pattern-ar-04.patt" smooth="true" smoothCount="12" smoothTolerance="0.01" smoothThreshold="5">
+        <a-entity look-at="[camera]" position="0 0.6 0">
           <a-image src="./assets/after-scan-4.png" width="1" height="0.7" position="0 0 0"></a-image>
           <a-text value="So many moments, quietly becoming years." align="center" color="#FFFFFF" width="2" position="0 -0.2 0.01"></a-text>
         </a-entity>
       </a-marker>
 
       <!-- MARKER 05 -->
-      <a-marker type="pattern" url="./assets/pattern-ar-05.patt">
+      <a-marker type="pattern" url="./assets/pattern-ar-05.patt" smooth="true" smoothCount="12" smoothTolerance="0.01" smoothThreshold="5">
         <a-entity rotation="-90 0 0">
           <a-image src="./assets/after-scan-5.png" width="1" height="0.7" position="0 0 0"></a-image>
           <a-text value="Somehow, time never waited for us." align="center" color="#FFFFFF" width="2" position="0 -0.2 0.01"></a-text>
@@ -56,7 +61,7 @@
       </a-marker>
 
       <!-- MARKER 06 -->
-      <a-marker type="pattern" url="./assets/pattern-ar-06.patt">
+      <a-marker type="pattern" url="./assets/pattern-ar-06.patt" smooth="true" smoothCount="12" smoothTolerance="0.01" smoothThreshold="5">
         <a-entity rotation="-90 0 0">
           <a-image src="./assets/after-scan-6.png" width="1" height="0.7" position="0 0 0"></a-image>
           <a-text value="By the time I noticed, it was already gone." align="center" color="#FFFFFF" width="2" position="0 -0.2 0.01"></a-text>
@@ -64,7 +69,7 @@
       </a-marker>
 
       <!-- MARKER 07 -->
-      <a-marker type="pattern" url="./assets/pattern-ar-07.patt">
+      <a-marker type="pattern" url="./assets/pattern-ar-07.patt" smooth="true" smoothCount="12" smoothTolerance="0.01" smoothThreshold="5">
         <a-entity rotation="-90 0 0">
           <a-image src="./assets/after-scan-7.png" width="1" height="0.7" position="0 0 0"></a-image>
           <a-text value="I wish I could go back again." align="center" color="#FFFFFF" width="2" position="0 -0.2 0.01"></a-text>
@@ -72,7 +77,7 @@
       </a-marker>
 
       <!-- MARKER 08 -->
-      <a-marker type="pattern" url="./assets/pattern-ar-08.patt">
+      <a-marker type="pattern" url="./assets/pattern-ar-08.patt" smooth="true" smoothCount="12" smoothTolerance="0.01" smoothThreshold="5">
         <a-entity rotation="-90 0 0">
           <a-image src="./assets/after-scan-8.png" width="1" height="0.7" position="0 0 0"></a-image>
           <a-text value="We look alike, yet belong to different times." align="center" color="#FFFFFF" width="2" position="0 -0.2 0.01"></a-text>
@@ -80,8 +85,8 @@
       </a-marker>
 
       <!-- MARKER 09 -->
-      <a-marker type="pattern" url="./assets/pattern-ar-09.patt">
-        <a-entity rotation="-90 0 0">
+      <a-marker type="pattern" url="./assets/pattern-ar-09.patt" smooth="true" smoothCount="12" smoothTolerance="0.01" smoothThreshold="5">
+        <a-entity look-at="[camera]" position="0 0.6 0">
           <a-image src="./assets/after-scan-9.png" width="1" height="0.7" position="0 0 0"></a-image>
           <a-text value="The thought of those days came back." align="center" color="#FFFFFF" width="2" position="0 -0.2 0.01"></a-text>
         </a-entity>
@@ -104,17 +109,14 @@
 
       // Hide the hint while any marker is tracked, show it again when all are lost
       const hint = document.getElementById('hint');
-      let visibleCount = 0;
+      const active = new Set();
       document.querySelectorAll('a-marker').forEach((m) => {
-        m.addEventListener('markerFound', () => {
-          visibleCount++;
-          hint.style.display = 'none';
-        });
-        m.addEventListener('markerLost', () => {
-          visibleCount = Math.max(0, visibleCount - 1);
-          if (visibleCount === 0) hint.style.display = 'block';
-        });
+        m.addEventListener('markerFound', () => { active.add(m); hint.style.display = 'none'; });
+        m.addEventListener('markerLost',  () => { active.delete(m); if (!active.size) hint.style.display = 'block'; });
       });
+      window.addEventListener('arjs-video-loaded', () => {
+      setTimeout(() => window.dispatchEvent(new Event('resize')), 300);
+    });
     </script>
   </body>
 </html>
